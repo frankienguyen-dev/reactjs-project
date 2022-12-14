@@ -36,6 +36,7 @@ const ModalUpdateUser = (props) => {
       if (dataUpdate.image) {
         setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
       }
+
     }
   }, [dataUpdate]);
 

@@ -17,7 +17,7 @@ const ModalUpdateUser = (props) => {
     setImage("");
     setRole("User");
     setUsername("");
-    setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
+    setPreviewImage("");
   };
 
   const [email, setEmail] = useState("");
@@ -33,7 +33,7 @@ const ModalUpdateUser = (props) => {
       setImage("");
       setRole(dataUpdate.role);
       setUsername(dataUpdate.username);
-      setPreviewImage("");
+      setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
     }
   }, [dataUpdate]);
 

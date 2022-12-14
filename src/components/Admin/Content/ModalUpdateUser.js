@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import _ from "lodash";
 
 const ModalUpdateUser = (props) => {
-  const { show, setShow, dataUpdate } = props;
+  const { show, setShow, dataUpdate, resetUpdateData } = props;
 
   const handleClose = () => {
     setShow(false);
@@ -18,6 +18,7 @@ const ModalUpdateUser = (props) => {
     setRole("User");
     setUsername("");
     setPreviewImage("");
+    resetUpdateData();
   };
 
   const [email, setEmail] = useState("");
@@ -36,7 +37,6 @@ const ModalUpdateUser = (props) => {
       if (dataUpdate.image) {
         setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
       }
-
     }
   }, [dataUpdate]);
 

@@ -38,35 +38,6 @@ const ModalViewUpdate = (props) => {
     }
   }, [dataView]);
 
-  //   const handleUploadImage = (event) => {
-  //     if (event.target && event.target.files && event.target.files[0]) {
-  //       setPreviewImage(URL.createObjectURL(event.target.files[0]));
-  //       setImage(event.target.files[0]);
-  //     }
-  //   };
-
-  //   const validateEmail = (email) => {
-  //     return String(email)
-  //       .toLowerCase()
-  //       .match(
-  //         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  //       );
-  //   };
-
-  //   const handleSubmitCreateUser = async () => {
-  //     let data = await putUpdateUser(dataView.id, username, role, image);
-
-  //     if (data && data.EC === 0) {
-  //       toast.success(data.EM);
-  //       handleClose();
-  //       await props.fetchListUser();
-  //     }
-
-  //     if (data && data.EC !== 0) {
-  //       toast.error(data.EM);
-  //     }
-  //   };
-
   return (
     <>
       <Modal
@@ -105,6 +76,7 @@ const ModalViewUpdate = (props) => {
             <div className="col-md-6">
               <label className="form-label">Username</label>
               <input
+                disabled={true}
                 onChange={(event) => setUsername(event.target.value)}
                 value={username}
                 type="text"
@@ -115,6 +87,7 @@ const ModalViewUpdate = (props) => {
               <label className="form-label">Role</label>
               <select
                 value={role}
+                disabled={true}
                 onChange={(event) => setRole(event.target.value)}
                 className="form-select"
               >
@@ -122,18 +95,6 @@ const ModalViewUpdate = (props) => {
                 <option value="Admin">Admin</option>
               </select>
             </div>
-
-            {/* <div className="col-md-12 ">
-              <label className="form-label label-upload" htmlFor="label-upload">
-                <FcPlus /> Upload File Image
-              </label>
-              <input
-                onChange={(event) => handleUploadImage(event)}
-                id="label-upload"
-                type="file"
-                hidden
-              />
-            </div> */}
 
             <div className="col-md-12 img-preview">
               {previewImage ? (

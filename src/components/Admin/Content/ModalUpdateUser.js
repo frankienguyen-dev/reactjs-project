@@ -1,47 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { FcPlus } from 'react-icons/fc';
-import axios from 'axios';
-import { putUpdateUser } from '../../../services/apiService';
-import { toast } from 'react-toastify';
-import _ from 'lodash';
+import React, { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { FcPlus } from "react-icons/fc";
+import axios from "axios";
+import { postCreateNewUser } from "../../../services/apiService";
+import { toast } from "react-toastify";
+import _ from "lodash";
 
 const ModalUpdateUser = (props) => {
-  const { show, setShow, dataUpdate, resetUpdateData } = props;
+  const { show, setShow, dataUpdate } = props;
 
   const handleClose = () => {
     setShow(false);
-    setEmail('');
-    setPassword('');
-    setImage('');
-    setRole('User');
-    setUsername('');
-    setPreviewImage('');
-    resetUpdateData();
+    setEmail("");
+    setPassword("");
+    setImage("");
+    setRole("User");
+    setUsername("");
+    setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
   };
 
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('User');
-  const [image, setImage] = useState('');
-  const [previewImage, setPreviewImage] = useState('');
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("User");
+  const [image, setImage] = useState("");
+  const [previewImage, setPreviewImage] = useState("");
 
   useEffect(() => {
-    console.log('effect run');
-    if (!_.isEmpty(props.dataUpdate)) {
-      // update state
-      setEmail(props.dataUpdate.email);
-      setPassword(props.dataUpdate.password);
-      setImage('');
-      setRole(props.dataUpdate.role);
-      setUsername(props.dataUpdate.username);
-      if (props.dataUpdate.image) {
-        setPreviewImage(`data:image/jpeg;base64,${props.dataUpdate.image}`);
-      }
+    if (!_.isEmpty(dataUpdate)) {
+      setEmail(dataUpdate.email);
+      setImage("");
+      setRole(dataUpdate.role);
+      setUsername(dataUpdate.username);
+      setPreviewImage("");
     }
-  }, [props.dataUpdate]);
+  }, [dataUpdate]);
 
   const handleUploadImage = (event) => {
     if (event.target && event.target.files && event.target.files[0]) {
@@ -50,8 +44,21 @@ const ModalUpdateUser = (props) => {
     }
   };
 
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   const handleSubmitCreateUser = async () => {
-    let data = await putUpdateUser(dataUpdate.id, username, role, image);
+    if (!password) {
+      toast.error("Invalid password :((");
+      return;
+    }
+
+    let data = await postCreateNewUser(email, password, username, role, image);
 
     if (data && data.EC === 0) {
       toast.success(data.EM);
@@ -66,6 +73,10 @@ const ModalUpdateUser = (props) => {
 
   return (
     <>
+      {/* <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+      </Button> */}
+
       <Modal
         className="modal-add-user"
         size="xl"
@@ -81,9 +92,9 @@ const ModalUpdateUser = (props) => {
             <div className="col-md-6">
               <label className="form-label">Email</label>
               <input
+                disabled={true}
                 onChange={(event) => setEmail(event.target.value)}
                 value={email}
-                disabled={true}
                 type="email"
                 className="form-control"
               />
@@ -91,9 +102,9 @@ const ModalUpdateUser = (props) => {
             <div className="col-md-6">
               <label className="form-label">Password</label>
               <input
+                disabled={true}
                 onChange={(event) => setPassword(event.target.value)}
                 value={password}
-                disabled={true}
                 type="password"
                 className="form-control"
               />
@@ -115,7 +126,7 @@ const ModalUpdateUser = (props) => {
                 onChange={(event) => setRole(event.target.value)}
                 className="form-select"
               >
-                <option defaultValue={'user'}>User</option>
+                <option defaultValue={"user"}>User</option>
                 <option value="Admin">Admin</option>
               </select>
             </div>
@@ -133,7 +144,11 @@ const ModalUpdateUser = (props) => {
             </div>
 
             <div className="col-md-12 img-preview">
-              {previewImage ? <img src={previewImage} /> : <span>Preview Image</span>}
+              {previewImage ? (
+                <img src={previewImage} />
+              ) : (
+                <span>Preview Image</span>
+              )}
             </div>
           </form>
         </Modal.Body>

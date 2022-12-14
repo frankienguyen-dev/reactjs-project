@@ -1,5 +1,5 @@
 const TableUser = (props) => {
-  const { listUser } = props;
+  const { listUser, handleClickButtonUpdate } = props;
 
   return (
     <>
@@ -25,7 +25,12 @@ const TableUser = (props) => {
                   <td>{user.role}</td>
                   <td className="d-flex justify-content-center">
                     <button className="btn btn-secondary">View</button>
-                    <button className="btn btn-warning mx-3">Update</button>
+                    <button
+                      onClick={() => handleClickButtonUpdate(user)}
+                      className="btn btn-warning mx-3"
+                    >
+                      Update
+                    </button>
                     <button className="btn btn-danger">Delete</button>
                   </td>
                 </tr>
@@ -33,7 +38,7 @@ const TableUser = (props) => {
             })}
           {listUser && listUser.length === 0 && (
             <tr>
-              <td colSpan={'4'}>Not found data</td>
+              <td colSpan={"4"}>Not found data</td>
             </tr>
           )}
         </tbody>

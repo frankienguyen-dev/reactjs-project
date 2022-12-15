@@ -9,7 +9,7 @@ const Header = () => {
     <Navbar bg="light" expand="lg">
       <Container>
         <NavLink className="navbar-brand" to="/">
-          Frankie Nguyen
+          Frankie Nguyen 
         </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 

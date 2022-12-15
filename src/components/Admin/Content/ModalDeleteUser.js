@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 
 const ModalDeleteUser = (props) => {
   const { show, setShow, dataDelete } = props;
-  console.log("data delete user:  ", dataDelete);
 
   const handleClose = () => {
     setShow(false);

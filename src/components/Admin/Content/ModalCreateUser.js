@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { FcPlus } from 'react-icons/fc';
-import axios from 'axios';
-import { postCreateNewUser } from '../../../services/apiService';
-import { toast } from 'react-toastify';
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { FcPlus } from "react-icons/fc";
+import axios from "axios";
+import { postCreateNewUser } from "../../../services/apiService";
+import { toast } from "react-toastify";
 
 const ModalCreateUser = (props) => {
   const { show, setShow } = props;
 
   const handleClose = () => {
     setShow(false);
-    setEmail('');
-    setPassword('');
-    setImage('');
-    setRole('User');
-    setUsername('');
-    setPreviewImage('');
+    setEmail("");
+    setPassword("");
+    setImage("");
+    setRole("User");
+    setUsername("");
+    setPreviewImage("");
   };
 
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('User');
-  const [image, setImage] = useState('');
-  const [previewImage, setPreviewImage] = useState('');
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("User");
+  const [image, setImage] = useState("");
+  const [previewImage, setPreviewImage] = useState("");
 
   const handleUploadImage = (event) => {
     if (event.target && event.target.files && event.target.files[0]) {
@@ -43,7 +43,7 @@ const ModalCreateUser = (props) => {
 
   const handleSubmitCreateUser = async () => {
     if (!password) {
-      toast.error('Invalid password :((');
+      toast.error("Invalid password :((");
       return;
     }
 
@@ -52,7 +52,8 @@ const ModalCreateUser = (props) => {
     if (data && data.EC === 0) {
       toast.success(data.EM);
       handleClose();
-      await props.fetchListUser();
+      props.setCurrentPage(1)
+      await props.fetchListUserWithPaginate(1);
     }
 
     if (data && data.EC !== 0) {
@@ -62,10 +63,6 @@ const ModalCreateUser = (props) => {
 
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button> */}
-
       <Modal
         className="modal-add-user"
         size="xl"
@@ -113,7 +110,7 @@ const ModalCreateUser = (props) => {
                 onChange={(event) => setRole(event.target.value)}
                 className="form-select"
               >
-                <option defaultValue={'user'}>User</option>
+                <option defaultValue={"user"}>User</option>
                 <option value="Admin">Admin</option>
               </select>
             </div>
@@ -131,7 +128,11 @@ const ModalCreateUser = (props) => {
             </div>
 
             <div className="col-md-12 img-preview">
-              {previewImage ? <img src={previewImage} /> : <span>Preview Image</span>}
+              {previewImage ? (
+                <img src={previewImage} />
+              ) : (
+                <span>Preview Image</span>
+              )}
             </div>
           </form>
         </Modal.Body>

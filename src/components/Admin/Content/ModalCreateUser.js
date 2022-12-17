@@ -52,7 +52,7 @@ const ModalCreateUser = (props) => {
     if (data && data.EC === 0) {
       toast.success(data.EM);
       handleClose();
-      props.setCurrentPage(1)
+      props.setCurrentPage(1);
       await props.fetchListUserWithPaginate(1);
     }
 
@@ -110,8 +110,8 @@ const ModalCreateUser = (props) => {
                 onChange={(event) => setRole(event.target.value)}
                 className="form-select"
               >
-                <option defaultValue={"user"}>User</option>
-                <option value="Admin">Admin</option>
+                <option defaultValue={"user"}>USER</option>
+                <option value="Admin">ADMIN</option>
               </select>
             </div>
 

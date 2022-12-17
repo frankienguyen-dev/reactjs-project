@@ -52,3 +52,15 @@
     }
   }
 }
+
+.pass-group {
+  position: relative;
+
+  .icons-eye {
+    cursor: pointer;
+    position: absolute;
+    top: 47%;
+    right: 0;
+    transform: translateX(-50%);
+  }
+}

@@ -31,11 +31,15 @@ const Login = (props) => {
     }
   };
 
+  const handleClickRegister = () => {
+    navigate("/register");
+  };
+
   return (
     <div className="login-container">
       <div className="header-login">
         <span>Don't have an account yet?</span>
-        <button>Sign up</button>
+        <button onClick={() => handleClickRegister()}>Sign up</button>
       </div>
 
       <div className="title-login col-4 mx-auto ">Frankie Nguyen</div>

@@ -124,8 +124,8 @@ const ModalUpdateUser = (props) => {
                 onChange={(event) => setRole(event.target.value)}
                 className="form-select"
               >
-                <option defaultValue={"user"}>User</option>
-                <option value="Admin">Admin</option>
+                <option defaultValue={"user"}>USER</option>
+                <option value="Admin">ADMIN</option>
               </select>
             </div>
 

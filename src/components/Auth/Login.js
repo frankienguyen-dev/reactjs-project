@@ -1,17 +1,42 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Login.scss";
+import { postLogin } from "../../services/apiService";
+import { toast } from "react-toastify";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleClickSubmit = () => {
-    alert("me");
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate("/");
+  };
+
+  const handleClickSubmit = async () => {
+    // validate
+
+    // call api
+    let response = await postLogin(email, password);
+    console.log("check login: ", response);
+
+    if (response && response.EC === 0) {
+      toast.success(response.EM);
+      navigate("/");
+    }
+
+    if (response && response.EC !== 0) {
+      toast.error(response.EM);
+    }
   };
 
   return (
     <div className="login-container">
-      <div className="header-login">Don't have an account yet?</div>
+      <div className="header-login">
+        <span>Don't have an account yet?</span>
+        <button>Sign up</button>
+      </div>
 
       <div className="title-login col-4 mx-auto ">Frankie Nguyen</div>
 
@@ -44,6 +69,10 @@ const Login = (props) => {
           <button onClick={() => handleClickSubmit()} className="btn-submit">
             Login to Frankie Nguyen
           </button>
+        </div>
+
+        <div onClick={() => handleGoBack()} className="goback">
+          <span>Go back Homepage</span>
         </div>
       </div>
     </div>

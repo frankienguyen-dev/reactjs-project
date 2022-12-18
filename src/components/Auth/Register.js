@@ -30,7 +30,7 @@ const Register = (props) => {
       );
   };
 
-  const handleClickSubmit = async () => {
+  const handleClickSubmitRegister = async () => {
     // validate
     if (!password) {
       toast.error("Invalid password :((");
@@ -114,7 +114,10 @@ const Register = (props) => {
         {/* <span className="forgot-password">Forgot password?</span> */}
 
         <div>
-          <button onClick={() => handleClickSubmit()} className="btn-submit">
+          <button
+            onClick={() => handleClickSubmitRegister()}
+            className="btn-submit"
+          >
             Register Frankie Nguyen
           </button>
         </div>

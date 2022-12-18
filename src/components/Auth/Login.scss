@@ -42,6 +42,11 @@
       background-color: #262627;
       color: white;
       margin-top: 10px;
+      &:disabled {
+        background: #dddddd;
+        color: #afafaf;
+        cursor: no-drop;
+      }
     }
 
     .goback {
@@ -62,5 +67,20 @@
     top: 47%;
     right: 0;
     transform: translateX(-50%);
+  }
+}
+
+.loaderIcon {
+  animation: spin 1s infinite linear;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+
+  to {
+    transform: scale(1) rotate(360deg);
   }
 }

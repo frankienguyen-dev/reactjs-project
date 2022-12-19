@@ -2,14 +2,18 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getDataQuiz } from "../../services/apiService";
 import _ from "lodash";
+import "./DetailQuiz.scss";
+import { useLocation } from "react-router-dom";
 
 const DetailQuiz = (props) => {
   const params = useParams();
+  const location = useLocation();
   const quizId = params.id;
 
+  console.log("location: ", location);
   const fetchQuestion = async () => {
     let response = await getDataQuiz(quizId);
-    console.log("check response quiz id: ", response.DT);
+
     if (response && response.EC === 0) {
       let raw = response.DT;
       let data = _.chain(raw)
@@ -26,7 +30,6 @@ const DetailQuiz = (props) => {
               image = item.image;
             }
             answers.push(item.answers);
-            console.log("answer: ", item.answers);
           });
 
           return {
@@ -37,7 +40,6 @@ const DetailQuiz = (props) => {
           };
         })
         .value();
-      console.log("data: ", data);
     }
   };
 
@@ -45,7 +47,36 @@ const DetailQuiz = (props) => {
     fetchQuestion();
   }, [quizId]);
 
-  return <div className="detail-quiz-container">Quiz Component</div>;
+  return (
+    <div className="detail-quiz-container">
+      <div className="left-content">
+        <div className="title">
+          Quiz {`${quizId}`}: {location?.state?.quizTitle}
+        </div>
+        <hr />
+
+        <div className="question-body">
+          <img src="" />
+        </div>
+
+        <div className="question-content">
+          <div className="question">Question 1: How are you doing?</div>
+          <div className="answer">
+            <div className="answer-option">A. HIHI</div>
+            <div className="answer-option">B. HAHA</div>
+            <div className="answer-option">C. HEHE</div>
+          </div>
+        </div>
+
+        <div className="footer">
+          <button className="button-next">Previous</button>
+          <button className="button-prev">Next</button>
+        </div>
+      </div>
+
+      <div className="right-content">countdown</div>
+    </div>
+  );
 };
 
 export default DetailQuiz;

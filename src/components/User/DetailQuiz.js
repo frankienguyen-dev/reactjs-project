@@ -1,16 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getDataQuiz } from "../../services/apiService";
 import _ from "lodash";
 import "./DetailQuiz.scss";
 import { useLocation } from "react-router-dom";
+import Question from "./Question";
 
 const DetailQuiz = (props) => {
   const params = useParams();
   const location = useLocation();
   const quizId = params.id;
 
-  console.log("location: ", location);
+  const [dataQuiz, setDataQuiz] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+
+  const handlePrevious = () => {
+    if (currentQuestion - 1 < 0) return;
+    setCurrentQuestion(currentQuestion - 1);
+  };
+
+  const handleNext = () => {
+    if (dataQuiz && dataQuiz.length > currentQuestion + 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else return;
+  };
+
+  useEffect(() => {
+    fetchQuestion();
+  }, [quizId]);
+
   const fetchQuestion = async () => {
     let response = await getDataQuiz(quizId);
 
@@ -40,12 +58,12 @@ const DetailQuiz = (props) => {
           };
         })
         .value();
+      console.log("check data: ", data);
+      setDataQuiz(data);
     }
   };
 
-  useEffect(() => {
-    fetchQuestion();
-  }, [quizId]);
+  console.log("check data quiz: ", dataQuiz);
 
   return (
     <div className="detail-quiz-container">
@@ -60,17 +78,21 @@ const DetailQuiz = (props) => {
         </div>
 
         <div className="question-content">
-          <div className="question">Question 1: How are you doing?</div>
-          <div className="answer">
-            <div className="answer-option">A. HIHI</div>
-            <div className="answer-option">B. HAHA</div>
-            <div className="answer-option">C. HEHE</div>
-          </div>
+          <Question
+            currentQuestion={currentQuestion}
+            dataQuiz={
+              dataQuiz && dataQuiz.length > 0 ? dataQuiz[currentQuestion] : []
+            }
+          />
         </div>
 
         <div className="footer">
-          <button className="button-next">Previous</button>
-          <button className="button-prev">Next</button>
+          <button onClick={() => handlePrevious()} className="button-next">
+            Previous
+          </button>
+          <button onClick={() => handleNext()} className="button-prev">
+            Next
+          </button>
         </div>
       </div>
 

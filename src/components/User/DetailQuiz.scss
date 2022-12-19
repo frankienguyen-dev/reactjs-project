@@ -2,9 +2,11 @@
   display: flex;
   gap: 20px;
   padding: 50px;
+
   .left-content {
     border: 1px solid red;
     width: 70%;
+
     .title {
       font-size: 25px;
       font-weight: bold;
@@ -19,6 +21,11 @@
       font-size: 20px;
       padding: 20px;
       line-height: 2;
+    }
+
+    .question-img img {
+      height: 200px;
+      width: 300px;
     }
 
     .footer {

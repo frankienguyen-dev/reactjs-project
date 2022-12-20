@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 const Question = (props) => {
   const { dataQuiz, currentQuestion, questionDescription } = props;
@@ -6,16 +6,23 @@ const Question = (props) => {
   if (_.isEmpty(dataQuiz)) {
     return <></>;
   }
+
+  const handleCheckBox = (event, answerId, questionId) => {
+    props.handleCheckBox(answerId, questionId);
+    console.log('check data props: ', answerId, questionId);
+  };
   return (
     <>
       <div className="question">
         Question {currentQuestion + 1}: {dataQuiz.questionDescription} ?
       </div>
-      {dataQuiz.image !== null && (
+      {dataQuiz.image ? (
         <div className="question-img">
           {/* setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`); */}
           <img src={`data:image/jpeg;base64,${dataQuiz.image}`} />
         </div>
+      ) : (
+        <div className="question-img"></div>
       )}
 
       <div className="answer">
@@ -26,13 +33,12 @@ const Question = (props) => {
               <div key={`answer - ${index}`} className="answer-option">
                 <div className="form-check">
                   <input
+                    onChange={(event) => handleCheckBox(event, answer.id, dataQuiz.questionId)}
                     className="form-check-input"
                     type="checkbox"
-                    value=""
+                    checked={answer.isSelected}
                   />
-                  <label className="form-check-label">
-                    {answer.description}
-                  </label>
+                  <label className="form-check-label">{answer.description}</label>
                 </div>
               </div>
             );

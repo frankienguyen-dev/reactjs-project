@@ -1,4 +1,4 @@
-import "react-pro-sidebar/dist/css/styles.css";
+import 'react-pro-sidebar/dist/css/styles.css';
 import {
   ProSidebar,
   Menu,
@@ -7,20 +7,13 @@ import {
   SidebarHeader,
   SidebarFooter,
   SidebarContent,
-} from "react-pro-sidebar";
-import {
-  FaTachometerAlt,
-  FaGem,
-  FaList,
-  FaGithub,
-  FaRegLaughWink,
-  FaHeart,
-} from "react-icons/fa";
-import sidebarBg from "../../assets/bg2.jpg";
-import { DiReact } from "react-icons/di";
-import { MdDashboard } from "react-icons/md";
-import { Link } from "react-router-dom";
-import { NavLink } from "react-bootstrap";
+} from 'react-pro-sidebar';
+import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
+import sidebarBg from '../../assets/bg2.jpg';
+import { DiReact } from 'react-icons/di';
+import { MdDashboard } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import { NavLink } from 'react-bootstrap';
 
 const Sidebar = (props) => {
   const { image, collapsed, toggled, handleToggleSidebar } = props;
@@ -36,18 +29,18 @@ const Sidebar = (props) => {
         <SidebarHeader>
           <div
             style={{
-              padding: "24px",
-              textTransform: "uppercase",
-              fontWeight: "bold",
+              padding: '24px',
+              textTransform: 'uppercase',
+              fontWeight: 'bold',
               fontSize: 14,
-              letterSpacing: "1px",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
+              letterSpacing: '1px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
             }}
           >
             <Link className="nav-link" to="/">
-              <DiReact size={"3em"} color={"00bfff"} />
+              <DiReact size={'3em'} color={'00bfff'} />
               <span>Frankie Nguyen</span>
             </Link>
           </div>
@@ -75,17 +68,20 @@ const Sidebar = (props) => {
                 Quản lý users
                 <Link to="/admins/manager-users" />
               </MenuItem>
-              <MenuItem> Quản lý Bài Quiz</MenuItem>
+              <MenuItem>
+                Quản lý Bài Quiz
+                <Link to="/admins/manager-quizzes" />
+              </MenuItem>
               <MenuItem> Quản lý câu hỏi</MenuItem>
             </SubMenu>
           </Menu>
         </SidebarContent>
 
-        <SidebarFooter style={{ textAlign: "center" }}>
+        <SidebarFooter style={{ textAlign: 'center' }}>
           <div
             className="sidebar-btn-wrapper"
             style={{
-              padding: "20px 24px",
+              padding: '20px 24px',
             }}
           >
             <a
@@ -97,9 +93,9 @@ const Sidebar = (props) => {
               <FaGithub />
               <span
                 style={{
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                  overflow: "hidden",
+                  whiteSpace: 'nowrap',
+                  textOverflow: 'ellipsis',
+                  overflow: 'hidden',
                 }}
               >
                 View Source

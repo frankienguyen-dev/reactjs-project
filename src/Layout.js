@@ -1,21 +1,20 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import App from "./App";
-import Admin from "./components/Admin/Admin";
-import User from "./components/User/User";
-import Login from "./components/Auth/Login";
-import HomePage from "./components/Home/HomePage";
-import ManageUser from "./components/Admin/Content/ManageUser";
-import Dashboard from "./components/Admin/Content/Dashboard";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Register from "./components/Auth/Register";
-import ListQuiz from "./components/User/ListQuiz";
-import DetailQuiz from "./components/User/DetailQuiz";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import App from './App';
+import Admin from './components/Admin/Admin';
+import User from './components/User/User';
+import Login from './components/Auth/Login';
+import HomePage from './components/Home/HomePage';
+import ManageUser from './components/Admin/Content/ManageUser';
+import Dashboard from './components/Admin/Content/Dashboard';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Register from './components/Auth/Register';
+import ListQuiz from './components/User/ListQuiz';
+import DetailQuiz from './components/User/DetailQuiz';
+import ManageQuiz from './components/Admin/Content/Quiz/ManageQuiz';
 
 const NotFound = () => {
-  return (
-    <div className="alert alert-danger container mt-3">404 Not Found Data</div>
-  );
+  return <div className="alert alert-danger container mt-3">404 Not Found Data</div>;
 };
 
 const Layout = () => {
@@ -31,6 +30,7 @@ const Layout = () => {
         <Route path="/admins" element={<Admin />}>
           <Route index element={<Dashboard />} />
           <Route path="manager-users" element={<ManageUser />} />
+          <Route path="manager-quizzes" element={<ManageQuiz />} />
         </Route>
 
         <Route path="/login" element={<Login />} />

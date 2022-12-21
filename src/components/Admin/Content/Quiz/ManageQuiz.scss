@@ -1,0 +1,18 @@
+.quiz-container {
+  padding: 20px;
+  .title {
+    margin: 20px;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  legend {
+    font-size: 20px;
+    font-weight: 500;
+  } 
+  .mode-actions {
+    label {
+        margin-right: 10px;
+    }
+  }
+}

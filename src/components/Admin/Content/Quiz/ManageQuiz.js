@@ -3,6 +3,8 @@ import Select from 'react-select';
 import { useState } from 'react';
 import { postCreateNewQuiz } from '../../../../services/apiService';
 import { toast } from 'react-toastify';
+import TableQuiz from './TableQuiz';
+import Accordion from 'react-bootstrap/Accordion';
 
 const options = [
   { value: 'Easy', label: 'Easy' },
@@ -43,54 +45,60 @@ const ManageQuiz = (props) => {
 
   return (
     <div className="quiz-container">
-      <div className="title">Manage Quiz</div>
-      <hr />
+      <Accordion defaultActiveKey="0" className='mb-5'>
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>Manage Quiz</Accordion.Header>
+          <Accordion.Body>
+            <div className="add-new">
+              <fieldset className="border rounded-3 p-3">
+                <legend className="float-none w-auto px-3">Add New Quiz</legend>
+                <div className="form-floating mb-3">
+                  <input
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                    type="text"
+                    className="form-control"
+                    placeholder="Your quiz name"
+                  />
+                  <label>Name</label>
+                </div>
+                <div className="form-floating">
+                  <input
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
+                    type="text"
+                    className="form-control"
+                    placeholder="Description..."
+                  />
+                  <label>Description</label>
+                </div>
 
-      <div className="add-new">
-        <fieldset className="border rounded-3 p-3">
-          <legend className="float-none w-auto px-3">Add New Quiz</legend>
-          <div className="form-floating mb-3">
-            <input
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              type="text"
-              className="form-control"
-              placeholder="Your quiz name"
-            />
-            <label>Name</label>
-          </div>
-          <div className="form-floating">
-            <input
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
-              type="text"
-              className="form-control"
-              placeholder="Description..."
-            />
-            <label>Description</label>
-          </div>
+                <div className="my-3">
+                  <Select
+                    defaultValue={type}
+                    onChange={setType}
+                    options={options}
+                    placeholder={'Quiz type...'}
+                  />
+                </div>
 
-          <div className="my-3">
-            <Select
-              defaultValue={type}
-              onChange={setType}
-              options={options}
-              placeholder={'Quiz type...'}
-            />
-          </div>
+                <div className="mode-actions form-group mx-3">
+                  <label className="">Upload Image:</label>
+                  <input onChange={(event) => handleChangeFile(event)} type="file" />
+                </div>
 
-          <div className="mode-actions form-group mx-3">
-            <label className="">Upload Image:</label>
-            <input onChange={(event) => handleChangeFile(event)} type="file" />
-          </div>
+                <div className="button-save">
+                  <button onClick={() => handleClickSubmitQuiz()}>Save</button>
+                </div>
+              </fieldset>
+            </div>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
 
-          <div className="button-save">
-            <button onClick={() => handleClickSubmitQuiz()}>Save</button>
-          </div>
-        </fieldset>
+      <div className="list-details">
+        <TableQuiz />
       </div>
-
-      <div className="list-details"></div>
     </div>
   );
 };

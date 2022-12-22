@@ -14,9 +14,11 @@ import { DiReact } from 'react-icons/di';
 import { MdDashboard } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = (props) => {
   const { image, collapsed, toggled, handleToggleSidebar } = props;
+  const navigate = useNavigate();
   return (
     <>
       <ProSidebar
@@ -39,10 +41,15 @@ const Sidebar = (props) => {
               whiteSpace: 'nowrap',
             }}
           >
-            <Link className="nav-link" to="/">
-              <DiReact size={'3em'} color={'00bfff'} />
-              <span>Frankie Nguyen</span>
-            </Link>
+            <DiReact
+              style={{ cursor: 'pointer' }}
+              onClick={() => navigate('/')}
+              size={'3em'}
+              color={'00bfff'}
+            />
+            <span style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
+              Frankie Nguyen
+            </span>
           </div>
         </SidebarHeader>
 

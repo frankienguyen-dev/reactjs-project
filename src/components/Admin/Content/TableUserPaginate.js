@@ -1,5 +1,6 @@
-import ReactPaginate from "react-paginate";
-import { useState, useEffect } from "react";
+import ReactPaginate from 'react-paginate';
+
+import { useState, useEffect } from 'react';
 
 const TableUserPaginate = (props) => {
   const {
@@ -21,7 +22,7 @@ const TableUserPaginate = (props) => {
     <>
       <table className="table table-hover table-bordered">
         <thead>
-          <tr>
+          <tr className="text-center">
             <th scope="col">ID</th>
             <th scope="col">Username</th>
             <th scope="col">Email</th>
@@ -34,12 +35,12 @@ const TableUserPaginate = (props) => {
             listUser.length > 0 &&
             listUser.map((user, index) => {
               return (
-                <tr key={`table user - ${index}`}>
+                <tr className="text-center" key={`table user - ${index}`}>
                   <td>{user.id}</td>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
                   <td>{user.role}</td>
-                  <td className="d-flex justify-content-center">
+                  <td className="text-center">
                     <button
                       onClick={() => handleClickButtonView(user)}
                       className="btn btn-secondary"
@@ -64,7 +65,7 @@ const TableUserPaginate = (props) => {
             })}
           {listUser && listUser.length === 0 && (
             <tr>
-              <td colSpan={"4"}>Not found data</td>
+              <td colSpan={'4'}>Not found data</td>
             </tr>
           )}
         </tbody>

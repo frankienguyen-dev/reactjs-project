@@ -9,8 +9,15 @@ $highlight-color: #dee2ec;
     }
   }
 
+  .admin-main {
+    height: calc(100vh - 40px);
+  }
+
   .admin-content {
     width: 100%;
+    .admin-header {
+      height: 40px;
+    }
   }
 }
 

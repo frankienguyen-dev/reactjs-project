@@ -1,37 +1,37 @@
-import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { FcPlus } from "react-icons/fc";
-import axios from "axios";
-import { putUpdateUser } from "../../../services/apiService";
-import { toast } from "react-toastify";
-import _ from "lodash";
+import React, { useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { FcPlus } from 'react-icons/fc';
+import axios from 'axios';
+import { putUpdateUser } from '../../../services/apiService';
+import { toast } from 'react-toastify';
+import _ from 'lodash';
 
 const ModalUpdateUser = (props) => {
   const { show, setShow, dataUpdate, resetUpdateData, currentPage } = props;
 
   const handleClose = () => {
     setShow(false);
-    setEmail("");
-    setPassword("");
-    setImage("");
-    setRole("User");
-    setUsername("");
-    setPreviewImage("");
+    setEmail('');
+    setPassword('');
+    setImage('');
+    setRole('User');
+    setUsername('');
+    setPreviewImage('');
     resetUpdateData();
   };
 
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("User");
-  const [image, setImage] = useState("");
-  const [previewImage, setPreviewImage] = useState("");
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('User');
+  const [image, setImage] = useState('');
+  const [previewImage, setPreviewImage] = useState('');
 
   useEffect(() => {
     if (!_.isEmpty(dataUpdate)) {
       setEmail(dataUpdate.email);
-      setImage("");
+      setImage('');
       setRole(dataUpdate.role);
       setUsername(dataUpdate.username);
       if (dataUpdate.image) {
@@ -124,7 +124,7 @@ const ModalUpdateUser = (props) => {
                 onChange={(event) => setRole(event.target.value)}
                 className="form-select"
               >
-                <option defaultValue={"user"}>USER</option>
+                <option defaultValue={'user'}>USER</option>
                 <option value="Admin">ADMIN</option>
               </select>
             </div>
@@ -142,11 +142,7 @@ const ModalUpdateUser = (props) => {
             </div>
 
             <div className="col-md-12 img-preview">
-              {previewImage ? (
-                <img src={previewImage} />
-              ) : (
-                <span>Preview Image</span>
-              )}
+              {previewImage ? <img src={previewImage} /> : <span>Preview Image</span>}
             </div>
           </form>
         </Modal.Body>

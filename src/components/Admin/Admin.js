@@ -5,7 +5,6 @@ import { FaBars } from 'react-icons/fa';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-
 const Admin = (props) => {
   const [collapsed, setCollapsed] = useState(false);
 
@@ -20,14 +19,13 @@ const Admin = (props) => {
       </div>
       <div className="admin-content">
         <div className="admin-header">
-          <FaBars onClick={handleToggleSideBar} />
+          <FaBars style={{ margin: 20 }} onClick={handleToggleSideBar} />
         </div>
 
         <div className="admin-main">
           <Outlet />
         </div>
       </div>
-      
     </div>
   );
 };

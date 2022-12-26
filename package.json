@@ -2,7 +2,6 @@
     "name": "base-react-redux",
     "version": "0.1.0",
     "private": true,
-  
     "dependencies": {
         "@testing-library/jest-dom": "5.16.4",
         "@testing-library/react": "13.3.0",
@@ -30,6 +29,7 @@
         "redux-persist": "6.0.0",
         "redux-thunk": "2.4.1",
         "sass": "1.53.0",
+        "uuid": "9.0.0",
         "web-vitals": "2.1.4"
     },
     "scripts": {
@@ -37,7 +37,6 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
-    
     },
     "eslintConfig": {
         "extends": [

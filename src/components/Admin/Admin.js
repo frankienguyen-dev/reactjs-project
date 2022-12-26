@@ -1,7 +1,7 @@
 import Sidebar from './Sidebar';
 import './Admin.scss';
 import { FaBars } from 'react-icons/fa';
-
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
@@ -23,7 +23,9 @@ const Admin = (props) => {
         </div>
 
         <div className="admin-main">
-          <Outlet />
+          <PerfectScrollbar>
+            <Outlet />
+          </PerfectScrollbar>
         </div>
       </div>
     </div>

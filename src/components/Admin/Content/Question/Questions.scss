@@ -1,5 +1,10 @@
 .question-container {
+  margin-bottom: 20px;
   padding: 20px;
+
+  .question-main {
+    margin-bottom: 30px;
+  }
 
   .title {
     font-size: 30px;
@@ -78,7 +83,7 @@
     gap: 10px;
     align-items: center;
 
-    .isCorrected {
+    .isCorrect {
     }
 
     .form-answer {

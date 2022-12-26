@@ -19,19 +19,13 @@ const Questions = (props) => {
   const [questions, setQuestions] = useState([
     {
       id: uuidv4(),
-      description: 'question 1',
+      description: '',
       imageFile: '',
       imageName: '',
       answers: [
         {
           id: uuidv4(),
-          description: 'answer 1',
-          isCorrect: false,
-        },
-
-        {
-          id: uuidv4(),
-          description: 'answer 2',
+          description: '',
           isCorrect: false,
         },
       ],
@@ -87,7 +81,52 @@ const Questions = (props) => {
     }
   };
 
-  console.log('check question: ', questions);
+  const handleOnChange = (type, questionId, value) => {
+    if (type === 'QUESTION') {
+      let questionsClone = _.cloneDeep(questions);
+      let index = questionsClone.findIndex((item) => item.id === questionId);
+      if (index > -1) {
+        questionsClone[index].description = value;
+        setQuestions(questionsClone);
+      }
+    }
+  };
+
+  const handleOnChangeFileQuestion = (questionId, event) => {
+    let questionsClone = _.cloneDeep(questions);
+
+    let index = questionsClone.findIndex((item) => item.id === questionId);
+    if (index > -1 && event.target && event.target.files && event.target.files[0]) {
+      questionsClone[index].imageFile = event.target.files[0];
+      questionsClone[index].imageName = event.target.files[0].name;
+      setQuestions(questionsClone);
+    }
+  };
+
+  const handleAnswerQuestion = (type, questionId, answerId, value) => {
+    let questionsClone = _.cloneDeep(questions);
+    let index = questionsClone.findIndex((item) => item.id === questionId);
+    if (index > -1) {
+      questionsClone[index].answers = questionsClone[index].answers.map((answer) => {
+        if (answer.id === answerId) {
+          if (type === 'CHECKBOX') {
+            answer.isCorrect = value;
+          }
+
+          if (type === 'INPUT') {
+            answer.description = value;
+          }
+        }
+        return answer;
+      });
+      setQuestions(questionsClone);
+    }
+  };
+
+  const handleSubmitQuestion = () => {
+    console.log('check question: ', questions);
+  };
+
   return (
     <PerfectScrollbar>
       <div className="question-container">
@@ -121,13 +160,23 @@ const Questions = (props) => {
                       value={question.description}
                       type="text"
                       placeholder={`Question ${index + 1}`}
+                      onChange={(event) =>
+                        handleOnChange('QUESTION', question.id, event.target.value)
+                      }
                     />
                   </div>
 
                   <div className="upload-file">
-                    <label>Upload Image</label>
-                    <input type={'file'} hidden />
-                    <span>0 file is uploaded</span>
+                    <label htmlFor={question.id}>Upload Image</label>
+                    <input
+                      id={question.id}
+                      onChange={(event) => handleOnChangeFileQuestion(question.id, event)}
+                      type={'file'}
+                      hidden
+                    />
+                    <span className="file-description">
+                      {question.imageName ? question.imageName : '0 file is uploaded'}
+                    </span>
                   </div>
 
                   <div className="btn-upload">
@@ -148,13 +197,33 @@ const Questions = (props) => {
                   question.answers.map((answer, index) => {
                     return (
                       <div key={answer.id} className="answer-content">
-                        <input className="form-check-input isCorrect" type="checkbox" />
+                        <input
+                          className="form-check-input isCorrect"
+                          type="checkbox"
+                          checked={answer.isCorrect}
+                          onChange={(event) =>
+                            handleAnswerQuestion(
+                              'CHECKBOX',
+                              question.id,
+                              answer.id,
+                              event.target.checked
+                            )
+                          }
+                        />
 
                         <div className="form-answer">
                           <input
                             value={answer.description}
                             type="text"
                             placeholder={`Answer ${index + 1}`}
+                            onChange={(event) =>
+                              handleAnswerQuestion(
+                                'INPUT',
+                                question.id,
+                                answer.id,
+                                event.target.value
+                              )
+                            }
                           />
                         </div>
 
@@ -180,6 +249,14 @@ const Questions = (props) => {
               </div>
             );
           })}
+
+        {questions && questions.length > 0 && (
+          <div className="text-center">
+            <button onClick={() => handleSubmitQuestion()} className=" btn btn-warning">
+              Save Question
+            </button>
+          </div>
+        )}
       </div>
     </PerfectScrollbar>
   );

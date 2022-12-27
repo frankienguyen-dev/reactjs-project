@@ -34,7 +34,6 @@ const ManageQuiz = (props) => {
 
     // call api
     let response = await postCreateNewQuiz(description, name, type?.value, image);
-    console.log('check response: ', response);
     if (response && response.EC === 0) {
       toast.success(response.EM);
       setName('');

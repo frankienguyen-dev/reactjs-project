@@ -27,11 +27,14 @@ const TableQuiz = (props) => {
   const fetchQuiz = async () => {
     setDataUpdate({});
     setDataDelete({});
+
     let response = await getAllQuizForAdmin();
-    if (response && response.DT) {
+
+    if (response && response.EC === 0) {
       setListQuiz(response.DT);
     }
   };
+
   return (
     <>
       <div style={{ fontSize: '20px', fontWeight: 'bold' }}>List Quizzes:</div>

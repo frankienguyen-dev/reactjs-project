@@ -6,6 +6,7 @@ import { AiFillMinusCircle } from 'react-icons/ai';
 import { v4 as uuidv4 } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import _ from 'lodash';
+import Lightbox from 'react-awesome-lightbox';
 
 const Questions = (props) => {
   const options = [
@@ -15,6 +16,11 @@ const Questions = (props) => {
   ];
 
   const [selectedQuiz, setSelectedQuiz] = useState({});
+  const [isPreviewImage, setIsPreviewImage] = useState(false);
+  const [dataImagePreview, setDataImagePreview] = useState({
+    title: '',
+    url: '',
+  });
 
   const [questions, setQuestions] = useState([
     {
@@ -127,6 +133,18 @@ const Questions = (props) => {
     console.log('check question: ', questions);
   };
 
+  const handlePreviewImage = (questionId) => {
+    let questionsClone = _.cloneDeep(questions);
+    let index = questionsClone.findIndex((item) => item.id === questionId);
+    if (index > -1) {
+      setDataImagePreview({
+        url: URL.createObjectURL(questionsClone[index].imageFile),
+        title: questionsClone[index].imageName,
+      });
+      setIsPreviewImage(true);
+    }
+  };
+
   return (
     <PerfectScrollbar>
       <div className="question-container">
@@ -175,7 +193,16 @@ const Questions = (props) => {
                       hidden
                     />
                     <span className="file-description">
-                      {question.imageName ? question.imageName : '0 file is uploaded'}
+                      {question.imageName ? (
+                        <span
+                          onClick={() => handlePreviewImage(question.id)}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          {question.imageName}
+                        </span>
+                      ) : (
+                        '0 file is uploaded'
+                      )}
                     </span>
                   </div>
 
@@ -256,6 +283,14 @@ const Questions = (props) => {
               Save Question
             </button>
           </div>
+        )}
+
+        {isPreviewImage === true && (
+          <Lightbox
+            onClose={() => setIsPreviewImage(false)}
+            image={dataImagePreview.url}
+            title={dataImagePreview.title}
+          />
         )}
       </div>
     </PerfectScrollbar>

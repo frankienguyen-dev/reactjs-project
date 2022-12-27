@@ -1,26 +1,27 @@
 import './Questions.scss';
 import Select from 'react-select';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { AiFillMinusCircle } from 'react-icons/ai';
 import { v4 as uuidv4 } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import _ from 'lodash';
 import Lightbox from 'react-awesome-lightbox';
+import { getAllQuizForAdmin } from '../../../../services/apiService';
+import {
+  postCreateNewAnswerForQuestion,
+  postCreateNewQuestionForQuiz,
+} from '../../../../services/apiService';
 
 const Questions = (props) => {
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
-
   const [selectedQuiz, setSelectedQuiz] = useState({});
   const [isPreviewImage, setIsPreviewImage] = useState(false);
   const [dataImagePreview, setDataImagePreview] = useState({
     title: '',
     url: '',
   });
+
+  const [listQuiz, setListQuiz] = useState([]);
 
   const [questions, setQuestions] = useState([
     {
@@ -129,8 +130,33 @@ const Questions = (props) => {
     }
   };
 
-  const handleSubmitQuestion = () => {
-    console.log('check question: ', questions);
+  const handleSubmitQuestion = async () => {
+    console.log('question: ', questions, selectedQuiz);
+    // todo
+
+    // validate
+
+    // submit question
+    await Promise.all(
+      questions.map(async (question) => {
+        const responseQuestion = await postCreateNewQuestionForQuiz(
+          +selectedQuiz.value,
+          question.description,
+          question.imageFile
+        );
+        
+        // submit answer
+        await Promise.all(
+          question.answers.map(async (answer) => {
+            await postCreateNewAnswerForQuestion(
+              answer.description,
+              answer.isCorrect,
+              responseQuestion.DT.id
+            );
+          })
+        );
+      })
+    );
   };
 
   const handlePreviewImage = (questionId) => {
@@ -142,6 +168,23 @@ const Questions = (props) => {
         title: questionsClone[index].imageName,
       });
       setIsPreviewImage(true);
+    }
+  };
+
+  useEffect(() => {
+    fetchQuiz();
+  }, []);
+
+  const fetchQuiz = async () => {
+    let response = await getAllQuizForAdmin();
+    if (response && response.DT) {
+      let newQuiz = response.DT.map((item) => {
+        return {
+          value: item.id,
+          label: `${item.id} - ${item.description}`,
+        };
+      });
+      setListQuiz(newQuiz);
     }
   };
 
@@ -158,7 +201,7 @@ const Questions = (props) => {
               className="select-input"
               value={selectedQuiz}
               onChange={setSelectedQuiz}
-              options={options}
+              options={listQuiz}
             />
           </div>
         </div>

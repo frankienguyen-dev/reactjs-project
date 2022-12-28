@@ -1,0 +1,125 @@
+.question-container {
+  margin-bottom: 20px;
+  padding: 20px;
+
+  .question-main {
+    margin-bottom: 30px;
+  }
+
+  .title {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+
+  .select-question {
+    span {
+      display: inline-block;
+      font-size: 20px;
+      font-weight: 500;
+      margin: 10px 0;
+    }
+
+    .select-input {
+      width: 60%;
+    }
+  }
+
+  .question-title {
+    margin: 20px 0;
+    span {
+      display: inline-block;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+
+  .question-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    .form-question {
+      input {
+        width: 720px;
+        height: 40px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 0 10px;
+      }
+    }
+
+    .upload-file {
+      padding-top: 5px;
+
+      label {
+        height: 30px;
+        border: 1px solid red;
+        padding: 3px 20px;
+        border-radius: 5px;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+    }
+
+    .btn-upload {
+      padding-top: 5px;
+      .btn-plus {
+        margin-right: 20px;
+        font-size: 30px;
+        color: #017bfe;
+        cursor: pointer;
+      }
+
+      .btn-minus {
+        font-size: 30px;
+        color: green;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .answer-content {
+    display: flex;
+    margin-top: 30px;
+    gap: 10px;
+    align-items: center;
+
+    .isCorrect {
+    }
+
+    .form-answer {
+      width: 58%;
+      input {
+        width: 100%;
+        height: 40px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 0 10px;
+      }
+    }
+
+    .btn-upload {
+      padding-top: 5px;
+      .btn-plus {
+        margin-right: 15px;
+        font-size: 30px;
+        color: #017bfe;
+        cursor: pointer;
+      }
+
+      .btn-minus {
+        font-size: 30px;
+        color: green;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.file-description {
+  display: inline-block;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: red;
+}

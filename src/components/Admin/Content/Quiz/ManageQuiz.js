@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import TableQuiz from './TableQuiz';
 import Accordion from 'react-bootstrap/Accordion';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import QuizQA from './QuizQA';
+import Assign from './Assign';
 
 const options = [
   { value: 'Easy', label: 'Easy' },
@@ -93,13 +95,27 @@ const ManageQuiz = (props) => {
                   </div>
                 </fieldset>
               </div>
+
+              <div className="list-details">
+                <TableQuiz />
+              </div>
+            </Accordion.Body>
+          </Accordion.Item>
+
+          <Accordion.Item eventKey="1">
+            <Accordion.Header>Update Q/A Quiz</Accordion.Header>
+            <Accordion.Body>
+              <QuizQA />
+            </Accordion.Body>
+          </Accordion.Item>
+
+          <Accordion.Item eventKey="2">
+            <Accordion.Header>Assign to Users</Accordion.Header>
+            <Accordion.Body>
+              <Assign />
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
-
-        <div className="list-details">
-          <TableQuiz />
-        </div>
       </div>
     </PerfectScrollbar>
   );

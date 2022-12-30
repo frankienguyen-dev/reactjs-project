@@ -6,6 +6,7 @@ import './DetailQuiz.scss';
 import { useLocation } from 'react-router-dom';
 import Question from './Question';
 import ModalResult from './ModalResult';
+import RightContent from './Content/RightContent';
 
 const DetailQuiz = (props) => {
   const params = useParams();
@@ -61,9 +62,8 @@ const DetailQuiz = (props) => {
       setDataModalResult({
         countCorrect: response.DT.countCorrect,
         countTotal: response.DT.countTotal,
-        quizData: response.DT.quizData 
-
-      })
+        quizData: response.DT.quizData,
+      });
       setIsShowModalResult(true);
     } else {
       alert('error');
@@ -161,7 +161,11 @@ const DetailQuiz = (props) => {
         </div>
       </div>
 
-      <div className="right-content">countdown</div>
+      <div className="right-content">
+        <RightContent
+        dataQuiz={dataQuiz}
+        />
+      </div>
       <ModalResult
         dataModalResult={dataModalResult}
         show={isShowModalResult}

@@ -1,7 +1,11 @@
+/* eslint-disable jsx-a11y/alt-text */
 import _ from 'lodash';
+import { useState } from 'react';
+import Lightbox from 'react-awesome-lightbox';
 
 const Question = (props) => {
   const { dataQuiz, currentQuestion, questionDescription } = props;
+  const [isPreviewImage, setIsPreviewImage] = useState(false);
 
   if (_.isEmpty(dataQuiz)) {
     return <></>;
@@ -17,8 +21,18 @@ const Question = (props) => {
       </div>
       {dataQuiz.image ? (
         <div className="question-img">
-          {/* setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`); */}
-          <img src={`data:image/jpeg;base64,${dataQuiz.image}`} />
+          <img
+            style={{ cursor: 'pointer' }}
+            onClick={() => setIsPreviewImage(true)}
+            src={`data:image/jpeg;base64,${dataQuiz.image}`}
+          />
+          {isPreviewImage === true && (
+            <Lightbox
+              onClose={() => setIsPreviewImage(false)}
+              image={`data:image/jpeg;base64,${dataQuiz.image}`}
+              title={'Question Image'}
+            />
+          )}
         </div>
       ) : (
         <div className="question-img"></div>

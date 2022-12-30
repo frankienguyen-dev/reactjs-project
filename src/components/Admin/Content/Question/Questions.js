@@ -215,7 +215,7 @@ const Questions = (props) => {
 
   const fetchQuiz = async () => {
     let response = await getAllQuizForAdmin();
-    if (response && response.DT) {
+    if (response && response.EC === 0) {
       let newQuiz = response.DT.map((item) => {
         return {
           value: item.id,

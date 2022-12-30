@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import _ from 'lodash';
 import Lightbox from 'react-awesome-lightbox';
-import { getAllQuizForAdmin } from '../../../../services/apiService';
+import { getAllQuizForAdmin, getQuizWithQA } from '../../../../services/apiService';
 import {
   postCreateNewAnswerForQuestion,
   postCreateNewQuestionForQuiz,
@@ -219,6 +219,48 @@ const QuizQA = (props) => {
         };
       });
       setListQuiz(newQuiz);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedQuiz && selectedQuiz.value) {
+      fetchQuizWithQA();
+    }
+  }, [selectedQuiz]);
+
+  //return a promise that resolves with a File instance
+  const urltoFile = (url, filename, mimeType) => {
+    return fetch(url)
+      .then(function (res) {
+        return res.arrayBuffer();
+      })
+      .then(function (buf) {
+        return new File([buf], filename, { type: mimeType });
+      });
+  };
+
+  const fetchQuizWithQA = async () => {
+    let response = await getQuizWithQA(selectedQuiz.value);
+
+    if (response && response.EC === 0) {
+      // convert base64 to File object
+      let newQA = [];
+      for (let i = 0; i < response.DT.qa.length; i++) {
+        let q = response.DT.qa[i];
+        if (q.imageFile) {
+          q.imageName = `Question - ${q.id}`;
+          q.imageFile = await urltoFile(
+            `data:image/png;base64,${q.imageFile}`,
+            `Question - ${q.id}`,
+            'image/png'
+          );
+        }
+        newQA.push(q);
+      }
+
+      setQuestions(newQA);
+      console.log('check qa', newQA);
+      console.log('check response ss: ', response.DT);
     }
   };
 

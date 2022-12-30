@@ -26,6 +26,7 @@ body {
 
 .homepage-container {
   margin-top: 20px;
+
   .homepage-content {
     padding: 100px;
     position: relative;
@@ -84,6 +85,10 @@ video {
   &:hover {
     opacity: 0.7;
   }
+}
+
+.app-content {
+  height: calc(100vh - 60px);
 }
 
 @media screen and (min-width: 1400px) {

@@ -25,8 +25,13 @@ const ListQuiz = (props) => {
         arrQuiz.map((quiz, index) => {
           return (
             <div key={`${index} - quiz`} className="card" style={{ width: '18rem' }}>
-              <img src={`data:image/jpeg;base64, ${quiz.image}`} className="card-img-top" alt="..." />
-              <div className="card-body">
+              <img
+                src={`data:image/jpeg;base64, ${quiz.image}`}
+                className="card-img-top"
+                alt="..."
+              />
+
+              <div className="content">
                 <h5 className="card-title">Quiz {index + 1}</h5>
                 <p className="card-text">{quiz.description}</p>
                 <button
@@ -35,7 +40,7 @@ const ListQuiz = (props) => {
                       state: { quizTitle: quiz.description },
                     })
                   }
-                  className="btn btn-primary"
+                  className="button btn btn-primary"
                 >
                   Start now
                 </button>

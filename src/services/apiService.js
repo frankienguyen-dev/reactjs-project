@@ -118,6 +118,10 @@ const getQuizWithQA = (quizId) => {
   return axiosClient.get(`api/v1/quiz-with-qa/${quizId}`);
 };
 
+const postUpsertQA = (data) => {
+  return axiosClient.post('api/v1/quiz-upsert-qa', { ...data });
+};
+
 export {
   postCreateNewUser,
   getAllUsers,
@@ -137,4 +141,5 @@ export {
   postCreateNewAnswerForQuestion,
   postAssignQuiz,
   getQuizWithQA,
+  postUpsertQA,
 };

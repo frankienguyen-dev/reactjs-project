@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import _ from 'lodash';
 import Lightbox from 'react-awesome-lightbox';
-import { getAllQuizForAdmin, getQuizWithQA } from '../../../../services/apiService';
+import { getAllQuizForAdmin, getQuizWithQA, postUpsertQA } from '../../../../services/apiService';
 import {
   postCreateNewAnswerForQuestion,
   postCreateNewQuestionForQuiz,
@@ -134,7 +134,6 @@ const QuizQA = (props) => {
   };
 
   const handleSubmitQuestion = async () => {
-    console.log('question: ', questions, selectedQuiz);
     // todo
 
     // validate
@@ -181,21 +180,34 @@ const QuizQA = (props) => {
     }
 
     // submit question
-    for (const question of questions) {
-      const q = await postCreateNewQuestionForQuiz(
-        +selectedQuiz.value,
-        question.description,
-        question.imageFile
-      );
-
-      // submit answer
-      for (const answer of question.answers) {
-        await postCreateNewAnswerForQuestion(answer.description, answer.isCorrect, q.DT.id);
+    let questionsClone = _.cloneDeep(questions);
+    console.log('check question clone: ', questionsClone);
+    for (let i = 0; i < questionsClone.length; i++) {
+      if (questionsClone[i].imageFile) {
+        questionsClone[i].imageFile = await toBase64(questionsClone[i].imageFile);
       }
     }
-    toast.success('Create Question and Answer Successfully');
-    setQuestions(initQuestions);
+    let response = await postUpsertQA({
+      quizId: selectedQuiz.value,
+      questions: questionsClone,
+    });
+
+    if (response && response.EC === 0) {
+      toast.success(response.EM);
+      fetchQuizWithQA();
+    } else {
+      toast.error(response.EM);
+    }
+    // setQuestions(initQuestions);
   };
+
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
 
   const handlePreviewImage = (questionId) => {
     let questionsClone = _.cloneDeep(questions);
@@ -259,8 +271,6 @@ const QuizQA = (props) => {
       }
 
       setQuestions(newQA);
-      console.log('check qa', newQA);
-      console.log('check response ss: ', response.DT);
     }
   };
 

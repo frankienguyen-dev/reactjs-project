@@ -1,11 +1,18 @@
 import Lightbox from 'react-awesome-lightbox';
+import CountDown from './Countdown';
 
 const RightContent = (props) => {
   const { dataQuiz } = props;
 
+  const onTimesUp = () => {
+    props.handleFinishQuiz();
+  };
+
   return (
     <>
-      <div className="main-timer">10:10</div>
+      <div className="main-timer">
+        <CountDown onTimesUp={onTimesUp} />
+      </div>
       <hr />
 
       <div className="main-question">

@@ -8,10 +8,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import _ from 'lodash';
 import Lightbox from 'react-awesome-lightbox';
 import { getAllQuizForAdmin, getQuizWithQA, postUpsertQA } from '../../../../services/apiService';
-import {
-  postCreateNewAnswerForQuestion,
-  postCreateNewQuestionForQuiz,
-} from '../../../../services/apiService';
+
 import { toast } from 'react-toastify';
 
 const QuizQA = (props) => {

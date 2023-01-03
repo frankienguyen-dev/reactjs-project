@@ -8,6 +8,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.languages {
+  .dropdown-toggle::after {
+    display: none;
+  }
+}
+
 .app-container {
   .header-container {
     .navbar {

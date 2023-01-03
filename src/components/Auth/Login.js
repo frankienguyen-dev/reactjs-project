@@ -1,22 +1,22 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./Login.scss";
-import { postLogin } from "../../services/apiService";
-import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { doLogin } from "../../redux/action/userAction";
-import { ImSpinner11 } from "react-icons/im";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Login.scss';
+import { postLogin } from '../../services/apiService';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { doLogin } from '../../redux/action/userAction';
+import { ImSpinner11 } from 'react-icons/im';
 
 const Login = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoadingData, setIsLoadingData] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleGoBack = () => {
-    navigate("/");
+    navigate('/');
   };
 
   const validateEmail = (email) => {
@@ -30,13 +30,13 @@ const Login = (props) => {
   const handleClickSubmitLogin = async () => {
     // validate
     if (!password) {
-      toast.error("Invalid password :((");
+      toast.error('Invalid password :((');
       return;
     }
 
     const isValidEmail = validateEmail(email);
     if (!isValidEmail) {
-      toast.error("Invalid email :((");
+      toast.error('Invalid email :((');
       return;
     }
 
@@ -45,13 +45,13 @@ const Login = (props) => {
 
     // call api
     let response = await postLogin(email, password);
-    console.log("check login: ", response);
+    console.log('check login: ', response);
 
     if (response && response.EC === 0) {
       dispatch(doLogin(response));
       toast.success(response.EM);
       setIsLoadingData(false);
-      navigate("/");
+      navigate('/');
     }
 
     if (response && response.EC !== 0) {
@@ -61,7 +61,13 @@ const Login = (props) => {
   };
 
   const handleClickRegister = () => {
-    navigate("/register");
+    navigate('/register');
+  };
+
+  const handleKeyDown = (event) => {
+    if (event && event.key === 'Enter') {
+      handleClickSubmitLogin();
+    }
   };
 
   return (
@@ -93,6 +99,7 @@ const Login = (props) => {
             value={password}
             type="password"
             className="form-control"
+            onKeyDown={(event) => handleKeyDown(event)}
           />
         </div>
 

@@ -18,13 +18,12 @@ const RightContent = (props) => {
         return 'question selected';
       }
     }
-    return 'question abc';
+    return 'question';
   };
 
   const handleClickQuestion = (question, index) => {
     props.setCurrentQuestion(index);
     if (refDiv.current) {
-      console.log(refDiv.current);
       refDiv.current.forEach((item) => {
         if (item && item.className === 'question clicked') {
           item.className = 'question';

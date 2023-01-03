@@ -13,6 +13,7 @@ import ListQuiz from './components/User/ListQuiz';
 import DetailQuiz from './components/User/DetailQuiz';
 import ManageQuiz from './components/Admin/Content/Quiz/ManageQuiz';
 import Questions from './components/Admin/Content/Question/Questions';
+import PrivateRoute from './components/routes/PrivateRoute';
 
 const NotFound = () => {
   return <div className="alert alert-danger container mt-3">404 Not Found Data</div>;
@@ -24,11 +25,25 @@ const Layout = () => {
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />} />
-          <Route path="users" element={<ListQuiz />} />
+          <Route
+            path="users"
+            element={
+              <PrivateRoute>
+                <ListQuiz />
+              </PrivateRoute>
+            }
+          />
         </Route>
         <Route path="quiz/:id" element={<DetailQuiz />} />
 
-        <Route path="/admins" element={<Admin />}>
+        <Route
+          path="/admins"
+          element={
+            <PrivateRoute>
+              <Admin />
+            </PrivateRoute>
+          }
+        >
           <Route index element={<Dashboard />} />
           <Route path="manager-users" element={<ManageUser />} />
           <Route path="manager-quizzes" element={<ManageQuiz />} />

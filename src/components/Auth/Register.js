@@ -1,25 +1,26 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./Login.scss";
-import { postLogin, postRegister } from "../../services/apiService";
-import { toast } from "react-toastify";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Login.scss';
+import { postLogin, postRegister } from '../../services/apiService';
+import { toast } from 'react-toastify';
+import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
+import Language from '../Header/Language';
 
 const Register = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
 
   const [isShowPassword, setIsShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate("/");
+    navigate('/');
   };
 
   const handleClickLogin = () => {
-    navigate("/login");
+    navigate('/login');
   };
 
   const validateEmail = (email) => {
@@ -33,13 +34,13 @@ const Register = (props) => {
   const handleClickSubmitRegister = async () => {
     // validate
     if (!password) {
-      toast.error("Invalid password :((");
+      toast.error('Invalid password :((');
       return;
     }
 
     const isValidEmail = validateEmail(email);
     if (!isValidEmail) {
-      toast.error("Invalid email :((");
+      toast.error('Invalid email :((');
       return;
     }
 
@@ -48,7 +49,7 @@ const Register = (props) => {
 
     if (response && response.EC === 0) {
       toast.success(response.EM);
-      navigate("/login");
+      navigate('/login');
     }
 
     if (response && response.EC !== 0) {
@@ -61,6 +62,7 @@ const Register = (props) => {
       <div className="header-login">
         <span>Do have an account yet?</span>
         <button onClick={() => handleClickLogin()}>Log in</button>
+        <Language />
       </div>
 
       <div className="title-login col-4 mx-auto ">Frankie Nguyen</div>
@@ -83,15 +85,12 @@ const Register = (props) => {
           <input
             onChange={(event) => setPassword(event.target.value)}
             value={password}
-            type={isShowPassword ? "text" : "password"}
+            type={isShowPassword ? 'text' : 'password'}
             className="form-control"
           />
 
           {isShowPassword ? (
-            <span
-              onClick={() => setIsShowPassword(false)}
-              className="icons-eye"
-            >
+            <span onClick={() => setIsShowPassword(false)} className="icons-eye">
               <AiFillEyeInvisible />
             </span>
           ) : (
@@ -114,10 +113,7 @@ const Register = (props) => {
         {/* <span className="forgot-password">Forgot password?</span> */}
 
         <div>
-          <button
-            onClick={() => handleClickSubmitRegister()}
-            className="btn-submit"
-          >
+          <button onClick={() => handleClickSubmitRegister()} className="btn-submit">
             Register Frankie Nguyen
           </button>
         </div>

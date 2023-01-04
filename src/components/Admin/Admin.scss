@@ -16,7 +16,24 @@ $highlight-color: #dee2ec;
   .admin-content {
     width: 100%;
     .admin-header {
-      height: 40px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      border-bottom: 1px solid #888;
+
+      .icon-header {
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      .right-side {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+      }
     }
   }
 }

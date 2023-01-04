@@ -4,6 +4,8 @@ import { FaBars } from 'react-icons/fa';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Language from '../Header/Language';
 
 const Admin = (props) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -19,7 +21,17 @@ const Admin = (props) => {
       </div>
       <div className="admin-content">
         <div className="admin-header">
-          <FaBars style={{ margin: 20 }} onClick={handleToggleSideBar} />
+          <span onClick={handleToggleSideBar}>
+            <FaBars className='icon-header' />
+          </span>
+
+          <div className='right-side'>
+            <Language />
+            <NavDropdown title="Setting" id="basic-nav-dropdown">
+              <NavDropdown.Item>Profile</NavDropdown.Item>
+              <NavDropdown.Item>Log Out</NavDropdown.Item>
+            </NavDropdown>
+          </div>
         </div>
 
         <div className="admin-main">

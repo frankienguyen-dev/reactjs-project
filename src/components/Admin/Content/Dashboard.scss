@@ -9,29 +9,42 @@
   .content {
     display: flex;
     height: 600px;
+    gap: 20px;
     .content-left {
       width: 50%;
-      border: 1px solid red;
+
       display: flex;
       flex-wrap: wrap;
-      
+      gap: 20px;
+
       .child {
-        width: 50%;
+        width: calc(50% - 10px);
         height: 300px;
+        border-radius: 10px;
         border: 1px solid black;
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
+
+        .text-1 {
+          font-size: 20px;
+          font-weight: 500;
+        }
+
+        .text-2 {
+          font-size: 15px;
+          font-weight: 400;
+        }
       }
     }
 
     .content-right {
       width: 50%;
-      border: 1px solid green;
+      height: 600px;
       display: flex;
       align-items: center;
       justify-content: center;
-      
     }
   }
 }

@@ -3,16 +3,36 @@ import './Admin.scss';
 import { FaBars } from 'react-icons/fa';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Language from '../Header/Language';
+import { toast } from 'react-toastify';
+import { doLogOut } from '../../redux/action/userAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut } from '../../services/apiService';
 
 const Admin = (props) => {
   const [collapsed, setCollapsed] = useState(false);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const account = useSelector((state) => state.user.account);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleToggleSideBar = () => {
     // console.log('collapsed');
     setCollapsed(!collapsed);
+  };
+
+  const handleLogOut = async () => {
+    let response = await logOut(account.email, account.refresh_token);
+    if (response && response.EC === 0) {
+      dispatch(doLogOut());
+
+      toast.success(response.EM);
+      navigate('/login');
+    } else {
+      toast.error(response.EM);
+    }
   };
   return (
     <div className="admin-container">
@@ -22,14 +42,14 @@ const Admin = (props) => {
       <div className="admin-content">
         <div className="admin-header">
           <span onClick={handleToggleSideBar}>
-            <FaBars className='icon-header' />
+            <FaBars className="icon-header" />
           </span>
 
-          <div className='right-side'>
+          <div className="right-side">
             <Language />
             <NavDropdown title="Setting" id="basic-nav-dropdown">
               <NavDropdown.Item>Profile</NavDropdown.Item>
-              <NavDropdown.Item>Log Out</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => handleLogOut()}>Log Out</NavDropdown.Item>
             </NavDropdown>
           </div>
         </div>
